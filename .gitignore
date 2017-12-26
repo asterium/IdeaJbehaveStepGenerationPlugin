@@ -1,0 +1,7 @@
+*.iml
+.idea/
+target/
+out/
+pom.xml.versionsBackup
+dependency-reduced-pom.xml
+*.DS_Store
