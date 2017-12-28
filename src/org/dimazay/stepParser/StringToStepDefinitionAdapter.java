@@ -1,12 +1,12 @@
 package org.dimazay.stepParser;
 
 import org.apache.commons.lang.WordUtils;
-import org.jetbrains.annotations.NotNull;
 import org.dimazay.stepParser.models.StepDefinition;
 import org.dimazay.stepParser.models.StepParameter;
 import org.dimazay.stepParser.models.StepType;
 import org.dimazay.stepParser.parameterExtraction.ParameterPatterns;
 import org.dimazay.stepParser.parameterExtraction.ParameterType;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,18 +74,36 @@ class StringToStepDefinitionAdapter {
 
         int parameterCount = 1;
         while (matcher.find()) {
-            String parameterName = parameterType.getTypeDescription() + parameterCount;
+            boolean isPreprocessed = matcher.group().startsWith("$");
 
-            StepParameter parameter = new StepParameter();
-            parameter.setParameterName(parameterName);
-            parameter.setParameterType(parameterType.getTypeValue());
+            StepParameter parameter = buildParameter(matcher.group(), parameterType, parameterCount);
+            String patternReplacementValue = getPatternReplacementText(parameter, isPreprocessed);
             parameters.add(parameter);
 
-            matcher.appendReplacement(processedStringBuffer, Matcher.quoteReplacement("$" + parameterName));
+            matcher.appendReplacement(processedStringBuffer, Matcher.quoteReplacement(patternReplacementValue));
             parameterCount++;
         }
         matcher.appendTail(processedStringBuffer);
         return processedStringBuffer.toString();
+    }
+
+    private String getPatternReplacementText(StepParameter parameter, boolean isPreprocessed) {
+        boolean shouldPrefixBeApplied = parameter.getParameterType() != ParameterType.STRING || isPreprocessed;
+        String prefix = shouldPrefixBeApplied ? "$" : "";
+        return  prefix+parameter.getParameterName();
+    }
+
+    private StepParameter buildParameter(String matchedText, ParameterType parameterType, int parameterCount) {
+        String parameterName = parameterType == ParameterType.STRING ?
+                matchedText.replaceAll("\\$", "") :
+                parameterType.getTypeDescription() + parameterCount;
+
+        StepParameter parameter = new StepParameter();
+        parameter.setParameterName(parameterName);
+        parameter.setParameterType(parameterType);
+        parameter.setIsNamed(parameterType == ParameterType.STRING);
+
+        return parameter;
     }
 
     @NotNull

@@ -1,5 +1,6 @@
 package org.dimazay.stepParser.models;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,15 +13,34 @@ public class StepDefinition {
     private String methodName;
     private List<StepParameter> stepParameters;
 
-    public String getGeneratedMethod(){
+    public String getGeneratedMethod() {
         String annotationText = stepType.getAnnotationText();
+        String stepParametersText = getMethodParametersString();
+        return String.format(STEP_TEMPLATE, annotationText, stepDescription, methodName, stepParametersText);
+    }
+
+    private String getMethodParametersString() {
         String stepParametersText = "";
-        if(stepParameters != null && !stepParameters.isEmpty()){
-            stepParametersText = stepParameters.stream()
+        if (stepParameters != null && !stepParameters.isEmpty()) {
+            List<StepParameter> sortedParameters = sortStepParametersByAppearanceOrder();
+            stepParametersText = sortedParameters.stream()
                     .map(parameter -> parameter.getParameterForMethodSignature())
                     .collect(Collectors.joining(", "));
         }
-        return String.format(STEP_TEMPLATE, annotationText, stepDescription, methodName, stepParametersText);
+        return stepParametersText;
+    }
+
+    private List<StepParameter> sortStepParametersByAppearanceOrder() {
+        Comparator<StepParameter> parameterComparator = (first, second) -> {
+            Integer firstIndex = stepDescription.indexOf(first.getParameterName());
+            Integer secondIndex = stepDescription.indexOf(second.getParameterName());
+            return firstIndex.compareTo(secondIndex);
+        };
+
+        return stepParameters
+                .stream()
+                .sorted(parameterComparator)
+                .collect(Collectors.toList());
     }
 
     public void setStepType(StepType stepType) {

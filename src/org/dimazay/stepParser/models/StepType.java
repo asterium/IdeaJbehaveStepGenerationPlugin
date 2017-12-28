@@ -30,7 +30,7 @@ public enum StepType {
     public String getDescriptionText() {return typeString; }
 
     public static String buildRegexPatternToMatchStepTypes() {
-        StepType[] possibleValues = StepType.GIVEN.getDeclaringClass().getEnumConstants();
+        StepType[] possibleValues = StepType.class.getEnumConstants();
         return Arrays.stream(possibleValues)
                 .map(enumInstance -> StringUtils.buildRegexIgnoringFirstCapital(enumInstance.typeString))
                 .collect(Collectors.joining("|"));

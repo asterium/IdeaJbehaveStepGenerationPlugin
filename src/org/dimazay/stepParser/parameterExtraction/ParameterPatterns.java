@@ -11,15 +11,16 @@ public class ParameterPatterns {
     private ParameterPatterns(){}
 
     private static final List<String> STRING_PATTERNS = ImmutableList.of(
+            "(?<=)\\$([a-zA-Z0-9]*)(?=\\s|$)(?<![integer|double|string]\\d)",
             "(?<=<)([A-Za-z]*)(?=>)"
     );
 
     private static final List<String> DOUBLE_PATTERNS = ImmutableList.of(
-            "(?<=\\s)(-?\\d+[,\\.]\\d+)(?=\\s)"
+            "(?<=\\s)(-?\\d+[,\\.]\\d+)(?=\\s|$)"
     );
 
     private static final List<String> INTEGER_PATTERNS = ImmutableList.of(
-            "(?<=\\s)(?<!double|integer|string)(-?\\d+)(?=\\s)"
+            "(?<=\\s|#|№)(?<!double|integer|string)(-?\\d+)(?=\\s|$)"
     );
 
     public static final Map<ParameterType, List<String>> PATTERNS = ImmutableMap.of(

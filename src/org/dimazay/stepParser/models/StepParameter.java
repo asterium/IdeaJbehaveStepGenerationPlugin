@@ -1,12 +1,16 @@
 package org.dimazay.stepParser.models;
 
+import org.dimazay.stepParser.parameterExtraction.ParameterType;
+
 public class StepParameter {
-    private static final String STEP_PARAMETER_STEP_TEMPLATE = "@Named(\"%s\") %s %s";
+    private static final String NAMED_TEMPLATE = "@Named(\"%s\") ";
+    private static final String PARAMETER_TEMPLATE =  "%s %s";
 
-    private String parameterType;
+    private ParameterType parameterType;
     private String parameterName;
+    private boolean shouldBeNamed;
 
-    public void setParameterType(String parameterType) {
+    public void setParameterType(ParameterType parameterType) {
         this.parameterType = parameterType;
     }
 
@@ -14,7 +18,20 @@ public class StepParameter {
         this.parameterName = parameterName;
     }
 
+    public void setIsNamed(boolean shouldBeNamed) {
+        this.shouldBeNamed = shouldBeNamed;
+    }
+
+    public String getParameterName() {
+        return parameterName;
+    }
+
+    public ParameterType getParameterType() {
+        return parameterType;
+    }
+
     public String getParameterForMethodSignature() {
-        return String.format(STEP_PARAMETER_STEP_TEMPLATE, parameterName, parameterType, parameterName);
+        String namedAnnotation = shouldBeNamed ? String.format(NAMED_TEMPLATE, parameterName): "";
+        return namedAnnotation + String.format(PARAMETER_TEMPLATE, parameterType.getTypeValue(), parameterName);
     }
 }

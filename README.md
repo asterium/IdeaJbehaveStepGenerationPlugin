@@ -12,7 +12,7 @@ Currently, this plugin allows to generate step definition and insert it into cli
 
 
 ### Note:
-This plugin supports automatic parameter extraction. Parameters use the mechanism of Jbehave parameter injection [Jbehave docs](http://jbehave.org/reference/latest/parameter-injection.html)
+This plugin supports automatic parameter extraction. Parameters use the mechanism of Jbehave parameter injection [Jbehave docs](http://jbehave.org/reference/latest/parameter-injection.html).
 So far here is the list of parameters supported:
 1. String - parameters for parametrized scenarios (in <> brackets)
 2. Double
