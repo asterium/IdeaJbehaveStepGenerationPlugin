@@ -1,10 +1,10 @@
 <idea-plugin>
-  <id>org.dimazay.stepgenerator</id>
-  <name>Jbehave Step Generator</name>
-  <version>1.0</version>
-  <vendor email="sprorock@gmail.com" url="http://www.yourcompany.com">Di Mazay</vendor>
+    <id>org.dimazay.stepgenerator</id>
+    <name>Jbehave Step Generator</name>
+    <version>1.0</version>
+    <vendor email="sprorock@gmail.com" url="http://www.yourcompany.com">Di Mazay</vendor>
 
-  <description><![CDATA[
+    <description><![CDATA[
       <h2>About this plugin<h2>
 
       This plugin is intended to simplify usage of Jbehave framework in Intellij IDEA.
@@ -34,20 +34,25 @@
       4. Improve parameter type support
     ]]></description>
 
-  <change-notes><![CDATA[
+    <change-notes><![CDATA[
          ]]>
-  </change-notes>
+    </change-notes>
 
-  <idea-version since-build="143.2370.31"/>
+    <idea-version since-build="143.2370.31"/>
 
-  <extensions defaultExtensionNs="com.intellij">
-    <intentionAction>
-      <className>org.dimazay.StepDefinitionGenerator</className>
-      <category>Jbehave Injections</category>
-    </intentionAction>
-  </extensions>
+    <extensions defaultExtensionNs="com.intellij">
+        <intentionAction>
+            <className>org.dimazay.GenerateBddStepIntention</className>
+            <category>Jbehave Intentions</category>
+        </intentionAction>
+    </extensions>
 
-  <actions>
-  </actions>
+    <actions>
+        <action id="org.dimazay.GenerateBddStepAction" class="org.dimazay.GenerateBddStepAction" text="Generate Jbehave Bdd Step"
+                description="Generate Jbehave Bdd Step">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+            <keyboard-shortcut first-keystroke="ctrl alt b" keymap="$default"/>
+        </action>
+    </actions>
 
 </idea-plugin>
