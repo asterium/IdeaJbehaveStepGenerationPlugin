@@ -17,7 +17,7 @@ class StringToStepDefinitionAdapter {
     private static final String REGEX_TEMPLATE = "(%s)(.*)";
 
     private final String stepDescription;
-    private boolean hasTableParameter;
+    private final boolean hasTableParameter;
     private List<StepParameter> parameters;
 
     public StringToStepDefinitionAdapter(String stepDescription, boolean hasTableParameter) {
@@ -25,6 +25,9 @@ class StringToStepDefinitionAdapter {
         this.hasTableParameter = hasTableParameter;
     }
 
+    public StringToStepDefinitionAdapter(String stepDescription) {
+        this(stepDescription, false);
+    }
 
     public StepDefinition getStepDefinition() {
         StepDefinition stepDefinition = new StepDefinition();
@@ -126,7 +129,7 @@ class StringToStepDefinitionAdapter {
     private String parseDescriptionAndGetGroupByIndex(int index) {
         String regex = String.format(REGEX_TEMPLATE, StepType.buildRegexPatternToMatchStepTypes());
         Pattern stepRegexPattern = Pattern.compile(regex);
-        Matcher matcher = stepRegexPattern.matcher(stepDescription);
+        Matcher matcher = stepRegexPattern.matcher(stepDescription.trim());
         if (!matcher.matches()) {
             return "";
         }
