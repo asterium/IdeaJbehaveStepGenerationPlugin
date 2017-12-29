@@ -17,11 +17,14 @@ class StringToStepDefinitionAdapter {
     private static final String REGEX_TEMPLATE = "(%s)(.*)";
 
     private final String stepDescription;
+    private boolean hasTableParameter;
     private List<StepParameter> parameters;
 
-    public StringToStepDefinitionAdapter(String stepDescription) {
+    public StringToStepDefinitionAdapter(String stepDescription, boolean hasTableParameter) {
         this.stepDescription = stepDescription;
+        this.hasTableParameter = hasTableParameter;
     }
+
 
     public StepDefinition getStepDefinition() {
         StepDefinition stepDefinition = new StepDefinition();
@@ -48,11 +51,24 @@ class StringToStepDefinitionAdapter {
 
     private String processStepDescriptionAndExtractParameters() {
         parameters = new ArrayList<>();
+
         String parsedDescription = parseDescriptionAndGetGroupByIndex(2);
         String processedString = processAndExtractParametersByType(parsedDescription, ParameterType.FLOAT);
         processedString = processAndExtractParametersByType(processedString, ParameterType.INTEGER);
         processedString = processAndExtractParametersByType(processedString, ParameterType.STRING);
+
+        addExamplesTableParameterIfRequired();
+
         return processedString;
+    }
+
+    private void addExamplesTableParameterIfRequired() {
+        if(hasTableParameter){
+            StepParameter exampleTableParameter = new StepParameter();
+            exampleTableParameter.setParameterType(ParameterType.EXAMPLES_TABLE);
+            exampleTableParameter.setParameterName(ParameterType.EXAMPLES_TABLE.getTypeDescription());
+            parameters.add(exampleTableParameter);
+        }
     }
 
     private String processAndExtractParametersByType(String stepDescription, ParameterType parameterType) {

@@ -3,7 +3,8 @@ package org.dimazay.stepParser.parameterExtraction;
 public enum ParameterType {
     INTEGER("integer", "int"),
     FLOAT("double", "double"),
-    STRING("string", "String");
+    STRING("string", "String"),
+    EXAMPLES_TABLE("examplesTable", "ExamplesTable");
 
     private final String parameterTypeText;
     private final String parameterTypeValue;

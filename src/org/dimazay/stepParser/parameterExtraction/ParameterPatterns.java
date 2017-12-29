@@ -11,16 +11,16 @@ public class ParameterPatterns {
     private ParameterPatterns(){}
 
     private static final List<String> STRING_PATTERNS = ImmutableList.of(
-            "(?<=)\\$([a-zA-Z0-9]*)(?=\\s|$)(?<![integer|double|string]\\d)",
-            "(?<=<)([A-Za-z]*)(?=>)"
+            "(?<=)\\$([a-zA-Z0-9]*)(?=\\s|$|,)(?<![integer|double]\\d)", //any word that is preceded by $ sign, but not already processed values (integer, double)
+            "(?<=<)([A-Za-z]*)(?=>)" //any word inside < > - as for parametrized scenarios
     );
 
     private static final List<String> DOUBLE_PATTERNS = ImmutableList.of(
-            "(?<=\\s)(-?\\d+[,\\.]\\d+)(?=\\s|$)"
+            "(?<=\\s)(-?\\d+[,\\.]\\d+)(?=\\s|$|,)" //any number preceded by whitespace and followes by whitespace, end of line, comma that has dot or comma as decimal separator
     );
 
     private static final List<String> INTEGER_PATTERNS = ImmutableList.of(
-            "(?<=\\s|#|№)(?<!double|integer|string)(-?\\d+)(?=\\s|$)"
+            "(?<=\\s|#|№)(?<!double|integer|string)(-?\\d+)(?=\\s|$|,)" //any number preceded by whitespace, # or № sign and followes by whitespace, end of line, comma
     );
 
     public static final Map<ParameterType, List<String>> PATTERNS = ImmutableMap.of(

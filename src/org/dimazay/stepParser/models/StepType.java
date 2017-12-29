@@ -1,7 +1,5 @@
 package org.dimazay.stepParser.models;
 
-import org.dimazay.stepParser.StringUtils;
-
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -15,7 +13,7 @@ public enum StepType {
     private final String annotationDescription;
 
     public static StepType parse(String value) {
-        return StepType.valueOf(value.toUpperCase());
+        return StepType.valueOf(value.trim().toUpperCase());
     }
 
     StepType(String typeString, String annotationDescription) {
@@ -32,7 +30,17 @@ public enum StepType {
     public static String buildRegexPatternToMatchStepTypes() {
         StepType[] possibleValues = StepType.class.getEnumConstants();
         return Arrays.stream(possibleValues)
-                .map(enumInstance -> StringUtils.buildRegexIgnoringFirstCapital(enumInstance.typeString))
+                .map(enumInstance -> buildRegexIgnoringFirstCapital(enumInstance.typeString))
                 .collect(Collectors.joining("|"));
+    }
+
+    public static String buildRegexIgnoringFirstCapital(String part){
+        char firstSymbol = part.charAt(0);
+        char firstSymbolUpperCase = Character.toUpperCase(firstSymbol);
+        char firstSymbolLowerCase = Character.toLowerCase(firstSymbol);
+
+        String rest = part.substring(1);
+
+        return String.format("[%s%s]"+rest,firstSymbolUpperCase, firstSymbolLowerCase);
     }
 }

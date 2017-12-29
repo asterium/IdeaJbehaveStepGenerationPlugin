@@ -29,7 +29,7 @@ public class GenerateBddStepAction extends AnAction {
         Project project = e.getProject();
         Editor editor = e.getData(PlatformDataKeys.EDITOR);
         PsiElement element = getPsiClassFromContext(e, editor);
-        e.getPresentation().setEnabled(stepGeneratorService.isStepGeneratorApplicable(project,editor,element));
+        e.getPresentation().setVisible(stepGeneratorService.isStepGeneratorApplicable(project,editor,element));
     }
 
     private PsiElement getPsiClassFromContext(AnActionEvent e, Editor editor) {

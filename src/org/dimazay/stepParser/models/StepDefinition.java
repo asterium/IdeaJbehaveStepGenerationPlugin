@@ -1,5 +1,7 @@
 package org.dimazay.stepParser.models;
 
+import org.dimazay.stepParser.parameterExtraction.ParameterType;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,6 +34,9 @@ public class StepDefinition {
 
     private List<StepParameter> sortStepParametersByAppearanceOrder() {
         Comparator<StepParameter> parameterComparator = (first, second) -> {
+            if(first.getParameterType() == ParameterType.EXAMPLES_TABLE) return 1;
+            if(second.getParameterType() == ParameterType.EXAMPLES_TABLE) return -1;
+
             Integer firstIndex = stepDescription.indexOf(first.getParameterName());
             Integer secondIndex = stepDescription.indexOf(second.getParameterName());
             return firstIndex.compareTo(secondIndex);
