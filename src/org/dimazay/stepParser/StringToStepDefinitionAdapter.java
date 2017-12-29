@@ -14,7 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class StringToStepDefinitionAdapter {
-    private static final String REGEX_TEMPLATE = "(%s)(.*)";
+    private static final String REGEX_TEMPLATE = "(%s)\\s(.*)";
 
     private final String stepDescription;
     private final boolean hasTableParameter;

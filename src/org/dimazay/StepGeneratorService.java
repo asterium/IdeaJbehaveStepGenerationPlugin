@@ -27,7 +27,7 @@ public class StepGeneratorService {
             return documentUtils.isLineStartingWithAllowedVerbs(activeLineContents);
     }
 
-    public void invokeStepGenerator(@NotNull Project project, Editor editor, @NotNull PsiElement psiElement){
+    public void invokeStepGenerator(Project project, Editor editor, PsiElement psiElement){
         Document activeDocument = PsiDocumentManager.getInstance(project).getDocument(psiElement.getContainingFile());
         DocumentUtils documentUtils = new DocumentUtils(activeDocument);
 

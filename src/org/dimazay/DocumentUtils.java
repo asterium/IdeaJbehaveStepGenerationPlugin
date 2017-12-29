@@ -48,6 +48,9 @@ class DocumentUtils {
     }
 
     private String getStringContentsByLineNumber(int lineNumber) {
+        if(document.getLineCount() <= lineNumber){
+            return "";
+        }
         int lineStartOffset = document.getLineStartOffset(lineNumber);
         int lineEndOffset = document.getLineEndOffset(lineNumber);
         return document.getText(TextRange.create(lineStartOffset, lineEndOffset));
