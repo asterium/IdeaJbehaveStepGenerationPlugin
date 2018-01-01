@@ -14,13 +14,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class StringToStepDefinitionAdapter {
-    private static final String REGEX_TEMPLATE = "(%s)(.*)";
+    private static final String REGEX_TEMPLATE = "(%s)\\s(.*)";
 
     private final String stepDescription;
+    private final boolean hasTableParameter;
     private List<StepParameter> parameters;
 
-    public StringToStepDefinitionAdapter(String stepDescription) {
+    public StringToStepDefinitionAdapter(String stepDescription, boolean hasTableParameter) {
         this.stepDescription = stepDescription;
+        this.hasTableParameter = hasTableParameter;
+    }
+
+    public StringToStepDefinitionAdapter(String stepDescription) {
+        this(stepDescription, false);
     }
 
     public StepDefinition getStepDefinition() {
@@ -48,11 +54,24 @@ class StringToStepDefinitionAdapter {
 
     private String processStepDescriptionAndExtractParameters() {
         parameters = new ArrayList<>();
+
         String parsedDescription = parseDescriptionAndGetGroupByIndex(2);
         String processedString = processAndExtractParametersByType(parsedDescription, ParameterType.FLOAT);
         processedString = processAndExtractParametersByType(processedString, ParameterType.INTEGER);
         processedString = processAndExtractParametersByType(processedString, ParameterType.STRING);
+
+        addExamplesTableParameterIfRequired();
+
         return processedString;
+    }
+
+    private void addExamplesTableParameterIfRequired() {
+        if(hasTableParameter){
+            StepParameter exampleTableParameter = new StepParameter();
+            exampleTableParameter.setParameterType(ParameterType.EXAMPLES_TABLE);
+            exampleTableParameter.setParameterName(ParameterType.EXAMPLES_TABLE.getTypeDescription());
+            parameters.add(exampleTableParameter);
+        }
     }
 
     private String processAndExtractParametersByType(String stepDescription, ParameterType parameterType) {
@@ -110,7 +129,7 @@ class StringToStepDefinitionAdapter {
     private String parseDescriptionAndGetGroupByIndex(int index) {
         String regex = String.format(REGEX_TEMPLATE, StepType.buildRegexPatternToMatchStepTypes());
         Pattern stepRegexPattern = Pattern.compile(regex);
-        Matcher matcher = stepRegexPattern.matcher(stepDescription);
+        Matcher matcher = stepRegexPattern.matcher(stepDescription.trim());
         if (!matcher.matches()) {
             return "";
         }
