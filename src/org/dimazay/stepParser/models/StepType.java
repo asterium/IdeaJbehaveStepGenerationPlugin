@@ -25,22 +25,15 @@ public enum StepType {
         return annotationDescription;
     }
 
-    public String getDescriptionText() {return typeString; }
+    public String getDescriptionText() {
+        return typeString;
+    }
 
     public static String buildRegexPatternToMatchStepTypes() {
         StepType[] possibleValues = StepType.class.getEnumConstants();
         return Arrays.stream(possibleValues)
-                .map(enumInstance -> buildRegexIgnoringFirstCapital(enumInstance.typeString))
+                .map(enumInstance -> enumInstance.getDescriptionText())
                 .collect(Collectors.joining("|"));
     }
 
-    public static String buildRegexIgnoringFirstCapital(String part){
-        char firstSymbol = part.charAt(0);
-        char firstSymbolUpperCase = Character.toUpperCase(firstSymbol);
-        char firstSymbolLowerCase = Character.toLowerCase(firstSymbol);
-
-        String rest = part.substring(1);
-
-        return String.format("[%s%s]"+rest,firstSymbolUpperCase, firstSymbolLowerCase);
-    }
 }

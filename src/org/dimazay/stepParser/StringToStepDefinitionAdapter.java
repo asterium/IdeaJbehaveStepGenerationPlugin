@@ -43,11 +43,10 @@ class StringToStepDefinitionAdapter {
         return StepType.parse(stepTypeStr);
     }
 
-    public String extractMethodName() {
+    private String extractMethodName() {
         String parsedDescription = parseDescriptionAndGetGroupByIndex(2);
         String sanitizedDescription = parsedDescription.replaceAll("[^A-Za-z\\s]", "");
         String capitalizedStep = WordUtils.capitalizeFully(sanitizedDescription);
-        StepType stepType = extractStepType();
 
         return capitalizedStep.replaceAll("\\s", "");
     }
@@ -130,7 +129,7 @@ class StringToStepDefinitionAdapter {
     @NotNull
     private String parseDescriptionAndGetGroupByIndex(int index) {
         String regex = String.format(REGEX_TEMPLATE, StepType.buildRegexPatternToMatchStepTypes());
-        Pattern stepRegexPattern = Pattern.compile(regex);
+        Pattern stepRegexPattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = stepRegexPattern.matcher(stepDescription.trim());
         if (!matcher.matches()) {
             return "";
