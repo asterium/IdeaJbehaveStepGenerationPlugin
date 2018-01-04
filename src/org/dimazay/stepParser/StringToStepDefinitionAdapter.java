@@ -43,13 +43,12 @@ class StringToStepDefinitionAdapter {
         return StepType.parse(stepTypeStr);
     }
 
-    private String extractMethodName() {
+    public String extractMethodName() {
         String parsedDescription = parseDescriptionAndGetGroupByIndex(2);
         String sanitizedDescription = parsedDescription.replaceAll("[^A-Za-z\\s]", "");
         String capitalizedStep = WordUtils.capitalizeFully(sanitizedDescription);
-        StepType stepType = extractStepType();
 
-        return stepType.getDescriptionText() + capitalizedStep.replaceAll("\\s", "");
+        return capitalizedStep.replaceAll("\\s", "");
     }
 
     private String processStepDescriptionAndExtractParameters() {
@@ -58,7 +57,9 @@ class StringToStepDefinitionAdapter {
         String parsedDescription = parseDescriptionAndGetGroupByIndex(2);
         String processedString = processAndExtractParametersByType(parsedDescription, ParameterType.FLOAT);
         processedString = processAndExtractParametersByType(processedString, ParameterType.INTEGER);
+        processedString = processAndExtractParametersByType(processedString, ParameterType.BOOLEAN);
         processedString = processAndExtractParametersByType(processedString, ParameterType.STRING);
+        processedString = sanitizeQuotationMarks(processedString);
 
         addExamplesTableParameterIfRequired();
 
@@ -66,7 +67,7 @@ class StringToStepDefinitionAdapter {
     }
 
     private void addExamplesTableParameterIfRequired() {
-        if(hasTableParameter){
+        if (hasTableParameter) {
             StepParameter exampleTableParameter = new StepParameter();
             exampleTableParameter.setParameterType(ParameterType.EXAMPLES_TABLE);
             exampleTableParameter.setParameterName(ParameterType.EXAMPLES_TABLE.getTypeDescription());
@@ -86,7 +87,7 @@ class StringToStepDefinitionAdapter {
 
     @NotNull
     private String processAndExtractParametersByRegex(String stepDescription, String regex, ParameterType parameterType) {
-        Pattern pattern = Pattern.compile(regex);
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(stepDescription);
 
         StringBuffer processedStringBuffer = new StringBuffer();
@@ -107,9 +108,9 @@ class StringToStepDefinitionAdapter {
     }
 
     private String getPatternReplacementText(StepParameter parameter, boolean isPreprocessed) {
-        boolean shouldPrefixBeApplied = parameter.getParameterType() != ParameterType.STRING || isPreprocessed;
+        boolean shouldPrefixBeApplied = (parameter.getParameterType() != ParameterType.STRING) || isPreprocessed;
         String prefix = shouldPrefixBeApplied ? "$" : "";
-        return  prefix+parameter.getParameterName();
+        return prefix + parameter.getParameterName();
     }
 
     private StepParameter buildParameter(String matchedText, ParameterType parameterType, int parameterCount) {
@@ -134,5 +135,9 @@ class StringToStepDefinitionAdapter {
             return "";
         }
         return matcher.group(index).trim();
+    }
+
+    private String sanitizeQuotationMarks(String stringToProcess) {
+        return stringToProcess.replaceAll("\"", "\\\\\"");
     }
 }
