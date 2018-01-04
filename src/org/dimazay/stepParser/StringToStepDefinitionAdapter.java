@@ -47,6 +47,7 @@ class StringToStepDefinitionAdapter {
         String parsedDescription = parseDescriptionAndGetGroupByIndex(2);
         String sanitizedDescription = parsedDescription.replaceAll("[^A-Za-z\\s]", "");
         String capitalizedStep = WordUtils.capitalizeFully(sanitizedDescription);
+        StepType stepType = extractStepType();
 
         return capitalizedStep.replaceAll("\\s", "");
     }
@@ -108,9 +109,9 @@ class StringToStepDefinitionAdapter {
     }
 
     private String getPatternReplacementText(StepParameter parameter, boolean isPreprocessed) {
-        boolean shouldPrefixBeApplied = (parameter.getParameterType() != ParameterType.STRING) || isPreprocessed;
+        boolean shouldPrefixBeApplied = parameter.getParameterType() != ParameterType.STRING || isPreprocessed;
         String prefix = shouldPrefixBeApplied ? "$" : "";
-        return prefix + parameter.getParameterName();
+        return  prefix+parameter.getParameterName();
     }
 
     private StepParameter buildParameter(String matchedText, ParameterType parameterType, int parameterCount) {
