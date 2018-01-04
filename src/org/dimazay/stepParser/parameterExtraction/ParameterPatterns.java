@@ -23,9 +23,14 @@ public class ParameterPatterns {
             "(?<=\\s|#|№)(?<!double|integer|string)(-?\\d+)(?=\\s|$|,)" //any number preceded by whitespace, # or № sign and followes by whitespace, end of line, comma
     );
 
+    private static final List<String> BOOLEAN_PATTERNS = ImmutableList.of(
+            "(?<=\\s)(true|false)(?=\\s|$|,)" //any number preceded by whitespace, # or № sign and followes by whitespace, end of line, comma
+    );
+
     public static final Map<ParameterType, List<String>> PATTERNS = ImmutableMap.of(
             ParameterType.FLOAT, DOUBLE_PATTERNS,
             ParameterType.INTEGER, INTEGER_PATTERNS,
-            ParameterType.STRING, STRING_PATTERNS
+            ParameterType.STRING, STRING_PATTERNS,
+            ParameterType.BOOLEAN, BOOLEAN_PATTERNS
     );
 }

@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>org.dimazay.stepgenerator</id>
     <name>Jbehave Step Generator</name>
-    <version>1.0</version>
+    <version>1.1.0</version>
     <vendor email="dzay@ukr.net" url="https://github.com/asterium/IdeaJbehaveStepGenerationPlugin">Dmytro Zaitsev</vendor>
 
     <description><![CDATA[
@@ -9,8 +9,8 @@
 
       This plugin is intended to simplify usage of Jbehave framework in Intellij IDEA.
       Idea of this plugin was borrowed from Visual Studio + Specflow integration tool, that allows to produce step definitions in one-click way.
-      Currently, this plugin allows to generate step definition and insert it into clipboard.
-
+      Currently, this plugin allows to generate step definition and insert it into clipboard.<br/>
+      <br/>
       <b>This plugin how-to:</b><br/>
       <ol>
       <li>Place caret on step in *.story file you want to generate</li>
@@ -20,19 +20,26 @@
       <li>Enjoy:)</li>
       </ol>
 
-      <b>Note</b><br/>:
+      <b>Note:</b><br/>
       This plugin supports automatic parameter extraction. Parameters use the mechanism of Jbehave parameter injection (http://jbehave.org/reference/latest/parameter-injection.html)<br/>
       So far here is the list of parameters supported:<br/>
       <ol>
       <li>String - parameters for parametrized scenarios (in <> brackets)</li>
       <li>Double</li>
-      <li>Integer ( confusion between int and long was not tested)
+      <li>Integer (confusion between int and long was not tested)</li>
+      <li>Boolean</li>
+      <li>Examples tables</li>
       </ol>
 
 
     ]]></description>
 
     <change-notes><![CDATA[
+        Since last version:<br/>
+        <ul>
+        <li>Added support of boolean parameters</li>
+        <li>Improved generated method name</li>
+        </ul>
          ]]>
     </change-notes>
 

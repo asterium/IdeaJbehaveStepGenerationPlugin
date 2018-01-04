@@ -4,6 +4,7 @@ public enum ParameterType {
     INTEGER("integer", "int"),
     FLOAT("double", "double"),
     STRING("string", "String"),
+    BOOLEAN("boolean", "boolean"),
     EXAMPLES_TABLE("examplesTable", "ExamplesTable");
 
     private final String parameterTypeText;

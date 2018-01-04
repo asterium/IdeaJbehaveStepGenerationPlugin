@@ -16,7 +16,9 @@ This plugin supports automatic parameter extraction. Parameters use the mechanis
 So far here is the list of parameters supported:
 1. String - parameters for parametrized scenarios (in <> brackets)
 2. Double
-3. Integer ( confusion between int and long was not tested)
+3. Integer
+4. Boolean
+5. ExamplesTable
 
 
 ### Further improvements:

@@ -18,7 +18,12 @@ public class StepDefinition {
     public String getGeneratedMethod() {
         String annotationText = stepType.getAnnotationText();
         String stepParametersText = getMethodParametersString();
-        return String.format(STEP_TEMPLATE, annotationText, stepDescription, methodName, stepParametersText);
+        String fullMethodName = getFullMethodName();
+        return String.format(STEP_TEMPLATE, annotationText, stepDescription, fullMethodName, stepParametersText);
+    }
+
+    private String getFullMethodName(){
+        return stepType.getDescriptionText().concat(methodName);
     }
 
     private String getMethodParametersString() {
