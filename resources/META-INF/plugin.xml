@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>org.dimazay.stepgenerator</id>
     <name>Jbehave Step Generator</name>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <vendor email="dzay@ukr.net" url="https://github.com/asterium/IdeaJbehaveStepGenerationPlugin">Dmytro Zaitsev</vendor>
 
     <description><![CDATA[
@@ -37,8 +37,7 @@
     <change-notes><![CDATA[
         Since last version:<br/>
         <ul>
-        <li>Added support of boolean parameters</li>
-        <li>Improved generated method name</li>
+        <li>Fixed issue of generated example tables</li>
         </ul>
          ]]>
     </change-notes>

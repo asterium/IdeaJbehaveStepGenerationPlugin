@@ -59,20 +59,22 @@ class StringToStepDefinitionAdapter {
         processedString = processAndExtractParametersByType(processedString, ParameterType.INTEGER);
         processedString = processAndExtractParametersByType(processedString, ParameterType.BOOLEAN);
         processedString = processAndExtractParametersByType(processedString, ParameterType.STRING);
+        processedString = addExamplesTableParameterIfRequired(processedString);
         processedString = sanitizeQuotationMarks(processedString);
-
-        addExamplesTableParameterIfRequired();
 
         return processedString;
     }
 
-    private void addExamplesTableParameterIfRequired() {
+    private String addExamplesTableParameterIfRequired(String stringToProcess) {
+        String result = stringToProcess;
         if (hasTableParameter) {
             StepParameter exampleTableParameter = new StepParameter();
             exampleTableParameter.setParameterType(ParameterType.EXAMPLES_TABLE);
             exampleTableParameter.setParameterName(ParameterType.EXAMPLES_TABLE.getTypeDescription());
             parameters.add(exampleTableParameter);
+            result = result.concat("$"+ParameterType.EXAMPLES_TABLE.getTypeDescription());
         }
+        return result;
     }
 
     private String processAndExtractParametersByType(String stepDescription, ParameterType parameterType) {
