@@ -2,20 +2,12 @@ package org.dimazay;
 
 import com.intellij.codeInsight.intention.IntentionAction;
 import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction;
-import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
-import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiPlainText;
 import com.intellij.util.IncorrectOperationException;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
-import org.dimazay.stepParser.StepDefinitionProcessor;
-
-import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
 
 public class GenerateBddStepIntention extends PsiElementBaseIntentionAction implements IntentionAction {
 
@@ -30,8 +22,6 @@ public class GenerateBddStepIntention extends PsiElementBaseIntentionAction impl
     public void invoke(@NotNull Project project, Editor editor, @NotNull PsiElement psiElement) throws IncorrectOperationException {
        stepGeneratorService.invokeStepGenerator(project,editor,psiElement);
     }
-
-
 
     @Override
     public boolean startInWriteAction() {

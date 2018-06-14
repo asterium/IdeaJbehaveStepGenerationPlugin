@@ -2,7 +2,8 @@
     <id>org.dimazay.stepgenerator</id>
     <name>Jbehave Step Generator</name>
     <version>1.1.0</version>
-    <vendor email="dzay@ukr.net" url="https://github.com/asterium/IdeaJbehaveStepGenerationPlugin">Dmytro Zaitsev</vendor>
+    <vendor email="dzay@ukr.net" url="https://github.com/asterium/IdeaJbehaveStepGenerationPlugin">Dmytro Zaitsev
+    </vendor>
 
     <description><![CDATA[
       <b>About this plugin</b><br/>
@@ -50,14 +51,23 @@
             <className>org.dimazay.GenerateBddStepIntention</className>
             <category>Jbehave Intentions</category>
         </intentionAction>
+        <intentionAction>
+            <className>org.dimazay.GenerateBddStepIntoClassIntention</className>
+            <category>Jbehave Intentions</category>
+        </intentionAction>
+
+        <projectService serviceInterface="org.dimazay.ui.interaction.filepicker.dialog.DecoratedTreeChooser"
+                        serviceImplementation="org.dimazay.ui.interaction.filepicker.dialog.DecoratedTreeClassChooserFactory"/>
     </extensions>
 
     <actions>
-        <action id="org.dimazay.GenerateBddStepAction" class="org.dimazay.GenerateBddStepAction" text="Generate Jbehave Bdd Step"
+        <action id="org.dimazay.GenerateBddStepAction" class="org.dimazay.GenerateBddStepAction"
+                text="Generate Jbehave Bdd Step"
                 description="Generate Jbehave Bdd Step">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
             <keyboard-shortcut first-keystroke="ctrl alt b" keymap="$default"/>
         </action>
+
     </actions>
 
 </idea-plugin>

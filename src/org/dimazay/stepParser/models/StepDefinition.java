@@ -31,7 +31,7 @@ public class StepDefinition {
         if (stepParameters != null && !stepParameters.isEmpty()) {
             List<StepParameter> sortedParameters = sortStepParametersByAppearanceOrder();
             stepParametersText = sortedParameters.stream()
-                    .map(parameter -> parameter.getParameterForMethodSignature())
+                    .map(StepParameter::getParameterForMethodSignature)
                     .collect(Collectors.joining(", "));
         }
         return stepParametersText;
