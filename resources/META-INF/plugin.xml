@@ -75,7 +75,6 @@
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
             <keyboard-shortcut first-keystroke="ctrl alt b" keymap="$default"/>
         </action>
-
     </actions>
 
 </idea-plugin>
