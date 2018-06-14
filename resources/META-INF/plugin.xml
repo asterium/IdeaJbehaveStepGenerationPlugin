@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>org.dimazay.stepgenerator</id>
     <name>Jbehave Step Generator</name>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <vendor email="dzay@ukr.net" url="https://github.com/asterium/IdeaJbehaveStepGenerationPlugin">Dmytro Zaitsev
     </vendor>
 
@@ -10,16 +10,25 @@
 
       This plugin is intended to simplify usage of Jbehave framework in Intellij IDEA.
       Idea of this plugin was borrowed from Visual Studio + Specflow integration tool, that allows to produce step definitions in one-click way.
-      Currently, this plugin allows to generate step definition and insert it into clipboard.<br/>
+      Currently, this plugin allows to generate step definition and insert it into clipboard, as well as insert step definition into selected class<br/>
+
+
       <br/>
       <b>This plugin how-to:</b><br/>
       <ol>
       <li>Place caret on step in *.story file you want to generate</li>
       <li>Press Alt+Enter</li>
-      <li>Select "Generate BDD Step"</li>
-      <li>Go to file you want your step definition to be placed into and paste ready step definition from standard clipboard (Ctrl+V)</li>
+      <li>Select "Generate BDD Step" <br/>
+      Go to file you want your step definition to be placed into and paste ready step definition from standard clipboard (Ctrl+V)</li>
+      <p>Or</p>
+      <li>Select "Generate BDD Step into class"<br/>
+      In the dialog select class to insert bdd step into and press "Select"(Enter)<br/>
+      Alternatively, click "Select and navigate" (Alt+Enter) to jump to the inserted method<br/>
+      </li>
       <li>Enjoy:)</li>
       </ol>
+      <br/>
+
 
       <b>Note:</b><br/>
       This plugin supports automatic parameter extraction. Parameters use the mechanism of Jbehave parameter injection (http://jbehave.org/reference/latest/parameter-injection.html)<br/>
@@ -38,8 +47,7 @@
     <change-notes><![CDATA[
         Since last version:<br/>
         <ul>
-        <li>Added support of boolean parameters</li>
-        <li>Improved generated method name</li>
+        <li>Implemented insertion of method into the classes</li>
         </ul>
          ]]>
     </change-notes>
