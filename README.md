@@ -14,9 +14,9 @@ Idea of this plugin was borrowed from Visual Studio + Specflow integration tool,
 2. Press Alt+Enter
 3. Select "Generate BDD Step into class"
 4. Pick proper class for newly generated step definition
-5. Close classpicker by clicking "Select" for staying in current feature file
-    or alternaltively
-    Close classpicker by clicking "Select and navigate" to open your selected class on a position where new method is inserted
+5. Close class picker by clicking "Select" (Enter) for staying in current feature file  
+    or alternatively  
+    Close class picker by clicking "Select and navigate" (Alt+Enter) to open your selected class on a position where new method is inserted
 6. Enjoy :)
 
 
